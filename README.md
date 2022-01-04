@@ -1,4 +1,4 @@
-## Go Pong ⚪
+## G⚪ P⚪ng 
 
 ## Getting Started
 
