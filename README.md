@@ -1,6 +1,4 @@
-# go_pong
-
-Go Pong 
+## Go Pong ⚪
 
 ## Getting Started
 
