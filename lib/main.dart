@@ -17,14 +17,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
       initialRoute: PlayAreaView.route,
-      onGenerateRoute: RouteConfig.routeConfig(),
-      onUnknownRoute: (RouteSettings settings) {
-        return MaterialPageRoute<void>(
-          settings: settings,
-          builder: (BuildContext context) =>
-              Scaffold(body: Center(child: Text('Nssot Found'))),
-        );
-      },
+      onGenerateRoute: RouteConfig.routeHandler(),
+      onUnknownRoute: RouteConfig.routeNotFound(),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }

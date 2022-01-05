@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:go_pong/views/not_found/not_found_view.dart';
 import 'package:go_pong/views/play_area/play_area_view.dart';
 
 class RouteConfig {
-  static routeConfig() {
+  static routeHandler() {
     return (RouteSettings routeSettings) {
       return {
         PlayAreaView.route: _buildPageRoute(const PlayAreaView())
       }[routeSettings.name];
+    };
+  }
+
+  static routeNotFound() {
+    return (RouteSettings routeSettings) {
+      return _buildPageRoute(const NotFoundView());
     };
   }
 
