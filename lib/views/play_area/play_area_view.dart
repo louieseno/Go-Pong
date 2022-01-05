@@ -17,7 +17,7 @@ class _PlayAreaViewState extends State<PlayAreaView> {
       appBar: AppBar(title: const Text('GO PONG')),
       body: Center(
         child: Stack(
-          children: [
+          children: const [
             Brick(x: 0.0, y: 0.9),
             Ball(x: 0.0, y: 0.0),
             Brick(x: 0.0, y: -0.9),
