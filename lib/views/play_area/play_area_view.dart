@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_pong/views/play_area/widgets/ball.dart';
+import 'package:go_pong/views/play_area/widgets/brick.dart';
 
 class PlayAreaView extends StatefulWidget {
   static const route = '/play_area';
@@ -9,35 +11,19 @@ class PlayAreaView extends StatefulWidget {
 }
 
 class _PlayAreaViewState extends State<PlayAreaView> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Title')),
+      appBar: AppBar(title: const Text('GO PONG')),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+        child: Stack(
+          children: [
+            Brick(x: 0.0, y: 0.9),
+            Ball(x: 0.0, y: 0.0),
+            Brick(x: 0.0, y: -0.9),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
