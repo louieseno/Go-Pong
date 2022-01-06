@@ -34,15 +34,11 @@ class _HomeViewState extends State<HomeView> with MixinNavigator {
             StackText(
               textSize: 45.0,
               xPosition: 0.0,
-              yPosition: -0.3,
+              yPosition: -0.5,
               text: '1 Player',
+              subTextSize: 35.0,
+              subText: 'Start',
               onTap: () => routePushReplaced(context, PlayAreaView.route),
-            ),
-            const StackText(
-              textSize: 35.0,
-              xPosition: 0.0,
-              yPosition: -0.18,
-              text: 'Start',
             ),
             const StackText(
               textSize: 35.0,
