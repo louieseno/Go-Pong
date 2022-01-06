@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_pong/views/play_area/widgets/ball.dart';
 import 'package:go_pong/views/play_area/widgets/brick.dart';
 
@@ -12,9 +13,14 @@ class PlayAreaView extends StatefulWidget {
 
 class _PlayAreaViewState extends State<PlayAreaView> {
   @override
+  void initState() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('GO PONG')),
       body: Center(
         child: Stack(
           children: const [
