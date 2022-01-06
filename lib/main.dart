@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_pong/config/routes/route_handler.dart';
-import 'package:go_pong/views/play_area/play_area_view.dart';
+import 'package:go_pong/views/home/home_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,9 +16,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primarySwatch: Colors.grey,
-          scaffoldBackgroundColor: Colors.grey[900]),
-      initialRoute: PlayAreaView.route,
+          primarySwatch: Colors.grey, scaffoldBackgroundColor: Colors.black87),
+      initialRoute: HomeView.route,
       onGenerateRoute: RouteConfig.routeHandler(),
       onUnknownRoute: RouteConfig.routeNotFound(),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
