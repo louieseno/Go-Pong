@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_pong/utils/mixins/mixin_navigator.dart';
+import 'package:go_pong/views/play_area/play_area_view.dart';
 import 'package:go_pong/widgets/stack_text.dart';
 
 class HomeView extends StatefulWidget {
@@ -10,7 +12,7 @@ class HomeView extends StatefulWidget {
   _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewState extends State<HomeView> with MixinNavigator {
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
@@ -22,8 +24,8 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       body: Center(
         child: Stack(
-          children: const [
-            StackText(
+          children: [
+            const StackText(
               textSize: 100.0,
               xPosition: 0.0,
               yPosition: -0.9,
@@ -34,26 +36,27 @@ class _HomeViewState extends State<HomeView> {
               xPosition: 0.0,
               yPosition: -0.3,
               text: '1 Player',
+              onTap: () => routePushReplaced(context, PlayAreaView.route),
             ),
-            StackText(
+            const StackText(
               textSize: 35.0,
               xPosition: 0.0,
               yPosition: -0.18,
               text: 'Start',
             ),
-            StackText(
+            const StackText(
               textSize: 35.0,
               xPosition: 0.0,
               yPosition: 0.3,
               text: '● Settings',
             ),
-            StackText(
+            const StackText(
               textSize: 35.0,
               xPosition: -0.05,
               yPosition: 0.5,
               text: '● About',
             ),
-            StackText(
+            const StackText(
               textSize: 35.0,
               xPosition: -0.07,
               yPosition: 0.7,
