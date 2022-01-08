@@ -16,7 +16,10 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primarySwatch: Colors.grey, scaffoldBackgroundColor: Colors.black87),
+        fontFamily: 'Games',
+        primarySwatch: Colors.grey,
+        scaffoldBackgroundColor: Colors.black87,
+      ),
       initialRoute: HomeView.route,
       onGenerateRoute: RouteConfig.routeHandler(),
       onUnknownRoute: RouteConfig.routeNotFound(),
