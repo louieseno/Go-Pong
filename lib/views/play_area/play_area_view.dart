@@ -73,13 +73,13 @@ class _PlayAreaViewState extends State<PlayAreaView> {
 
   void _moveLeft() {
     setState(() {
-      _playerX -= 0.5;
+      _playerX -= 0.07;
     });
   }
 
   void _moveRight() {
     setState(() {
-      _playerX += 0.5;
+      _playerX += 0.07;
     });
   }
 
