@@ -15,12 +15,14 @@ class PlayAreaView extends StatefulWidget {
 }
 
 class _PlayAreaViewState extends State<PlayAreaView> {
+  late Timer _ballTimer;
   bool _gameStart = false;
 
   double _ballX = 0.0;
   double _ballY = 0.0;
-  BallDirection _ballYDirection = BallDirection.down;
+
   BallDirection _ballXDirection = BallDirection.right;
+  BallDirection _ballYDirection = BallDirection.down;
 
   double _playerX = 0.0;
 
@@ -33,7 +35,7 @@ class _PlayAreaViewState extends State<PlayAreaView> {
       _ballYDirection = BallDirection.up;
     }
 
-    // HORIZONTAL UPDATE {
+    // HORIZONTAL UPDATE
     if (_ballX <= -1) {
       _ballXDirection = BallDirection.right;
     }
@@ -43,14 +45,14 @@ class _PlayAreaViewState extends State<PlayAreaView> {
   }
 
   void _moveBall() {
-    // HORIZONTAL DIRECTION
+    // VERTICAL DIRECTION
     if (_ballYDirection == BallDirection.down) {
       _ballY += 0.01;
     }
     if (_ballYDirection == BallDirection.up) {
       _ballY -= 0.01;
     }
-    // VERTICAL DIRECTION
+    // HORIZONAL DIRECTION
     if (_ballXDirection == BallDirection.left) {
       _ballX -= 0.01;
     }
@@ -59,13 +61,26 @@ class _PlayAreaViewState extends State<PlayAreaView> {
     }
   }
 
+  void _checkDeadBall() {
+    if (_ballY >= 1) {
+      _ballTimer.cancel();
+      _gameStart = false;
+      _ballX = 0.0;
+      _ballY = 0.0;
+      _ballXDirection = BallDirection.right;
+      _ballYDirection = BallDirection.down;
+    }
+  }
+
   void _startGame() {
     setState(() {
       _gameStart = true;
       Timer.periodic(const Duration(milliseconds: 8), (timer) {
+        _ballTimer = timer;
         setState(() {
           _updateDirection();
           _moveBall();
+          _checkDeadBall();
         });
       });
     });
