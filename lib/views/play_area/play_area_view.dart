@@ -44,7 +44,7 @@ class _PlayAreaViewState extends State<PlayAreaView> {
 
   void _startGame() {
     _gameStart = true;
-    Timer.periodic(const Duration(milliseconds: 1), (timer) {
+    Timer.periodic(const Duration(milliseconds: 8), (timer) {
       setState(() {
         _updateDirection();
         _moveBall();
@@ -54,13 +54,13 @@ class _PlayAreaViewState extends State<PlayAreaView> {
 
   void _moveLeft() {
     setState(() {
-      _playerX -= 0.1;
+      _playerX -= 0.8;
     });
   }
 
   void _moveRight() {
     setState(() {
-      _playerX += 0.1;
+      _playerX += 0.8;
     });
   }
 

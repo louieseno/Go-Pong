@@ -14,7 +14,7 @@ class Brick extends StatelessWidget {
         child: Container(
           color: Colors.white,
           height: 20.0,
-          width: MediaQuery.of(context).size.width / 6,
+          width: MediaQuery.of(context).size.width / 4,
         ),
       ),
     );
