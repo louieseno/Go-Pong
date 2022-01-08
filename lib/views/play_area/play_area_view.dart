@@ -75,7 +75,7 @@ class _PlayAreaViewState extends State<PlayAreaView> {
   void _startGame() {
     setState(() {
       _gameStart = true;
-      Timer.periodic(const Duration(milliseconds: 8), (timer) {
+      Timer.periodic(const Duration(milliseconds: 20), (timer) {
         _ballTimer = timer;
         setState(() {
           _updateDirection();
@@ -88,13 +88,17 @@ class _PlayAreaViewState extends State<PlayAreaView> {
 
   void _moveLeft() {
     setState(() {
-      _playerX -= 0.07;
+      if (_playerX > -0.95) {
+        _playerX -= 0.07;
+      }
     });
   }
 
   void _moveRight() {
     setState(() {
-      _playerX += 0.07;
+      if (_playerX < 0.95) {
+        _playerX += 0.07;
+      }
     });
   }
 
@@ -102,7 +106,7 @@ class _PlayAreaViewState extends State<PlayAreaView> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: _startGame,
-      onPanUpdate: (details) {
+      onHorizontalDragUpdate: (DragUpdateDetails details) {
         if (_gameStart) {
           // Swiping in right direction.
           if (details.delta.dx > 0) {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_pong/utils/constants/device_type.dart';
+import 'package:go_pong/utils/helpers/check_device_type.dart';
 
 class Brick extends StatelessWidget {
   static const yTop = -0.9;
@@ -17,7 +19,8 @@ class Brick extends StatelessWidget {
         child: Container(
           color: Colors.white,
           height: 20.0,
-          width: MediaQuery.of(context).size.width / 4,
+          width: MediaQuery.of(context).size.width /
+              (CheckDeviceType.deviceType == DeviceType.phone ? 4 : 10),
         ),
       ),
     );
