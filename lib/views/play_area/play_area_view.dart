@@ -19,48 +19,68 @@ class _PlayAreaViewState extends State<PlayAreaView> {
 
   double _ballX = 0.0;
   double _ballY = 0.0;
-  BallDirection _ballDirection = BallDirection.down;
+  BallDirection _ballYDirection = BallDirection.down;
+  BallDirection _ballXDirection = BallDirection.right;
 
   double _playerX = 0.0;
   double _playerY = 0.9;
 
   void _updateDirection() {
+    // VERTICAL UPDATE
     if (_ballY <= -0.9) {
-      _ballDirection = BallDirection.down;
+      _ballYDirection = BallDirection.down;
     }
     if (_ballY >= 0.9) {
-      _ballDirection = BallDirection.up;
+      _ballYDirection = BallDirection.up;
+    }
+
+    // HORIZONTAL UPDATE {
+    if (_ballX <= -1) {
+      _ballXDirection = BallDirection.right;
+    }
+    if (_ballX >= 1) {
+      _ballXDirection = BallDirection.left;
     }
   }
 
   void _moveBall() {
-    if (_ballDirection == BallDirection.down) {
+    // HORIZONTAL DIRECTION
+    if (_ballYDirection == BallDirection.down) {
       _ballY += 0.01;
     }
-    if (_ballDirection == BallDirection.up) {
+    if (_ballYDirection == BallDirection.up) {
       _ballY -= 0.01;
+    }
+    // VERTICAL DIRECTION
+    if (_ballXDirection == BallDirection.left) {
+      _ballX -= 0.01;
+    }
+    if (_ballXDirection == BallDirection.right) {
+      _ballX += 0.01;
     }
   }
 
   void _startGame() {
-    _gameStart = true;
-    Timer.periodic(const Duration(milliseconds: 8), (timer) {
-      setState(() {
-        _updateDirection();
-        _moveBall();
+    setState(() {
+      _gameStart = true;
+      Timer.periodic(const Duration(milliseconds: 8), (timer) {
+        setState(() {
+          _updateDirection();
+          _moveBall();
+        });
       });
     });
   }
 
   void _moveLeft() {
     setState(() {
-      _playerX -= 0.8;
+      _playerX -= 0.5;
     });
   }
 
   void _moveRight() {
     setState(() {
-      _playerX += 0.8;
+      _playerX += 0.5;
     });
   }
 
