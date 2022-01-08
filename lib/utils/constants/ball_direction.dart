@@ -1,0 +1,1 @@
+enum BallDirection { up, down }
