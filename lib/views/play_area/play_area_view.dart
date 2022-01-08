@@ -23,14 +23,13 @@ class _PlayAreaViewState extends State<PlayAreaView> {
   BallDirection _ballXDirection = BallDirection.right;
 
   double _playerX = 0.0;
-  double _playerY = 0.9;
 
   void _updateDirection() {
     // VERTICAL UPDATE
-    if (_ballY <= -0.9) {
+    if (_ballY <= Brick.yTop) {
       _ballYDirection = BallDirection.down;
     }
-    if (_ballY >= 0.9) {
+    if (_ballY >= Brick.yBottom) {
       _ballYDirection = BallDirection.up;
     }
 
@@ -111,9 +110,12 @@ class _PlayAreaViewState extends State<PlayAreaView> {
                   yPosition: 0.1,
                   text: 'TAP  TO  PLAY',
                 ),
-              const Brick(x: 0.0, y: -0.9),
+              const Brick(
+                x: 0.0,
+                isNegative: true,
+              ),
               Ball(x: _ballX, y: _ballY),
-              Brick(x: _playerX, y: _playerY),
+              Brick(x: _playerX, isNegative: false),
             ],
           ),
         ),
