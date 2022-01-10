@@ -1,15 +1,28 @@
-## G⚬ P⚬ng 
+# G⚬ P⚬ng 
+A two-dimensional sports game that simulates table tennis using Flutter. 
 
-## Getting Started
+## Description
+Go Pong is a two-dimensional sports game that simulates table tennis. This game features two bricks and a ball. Each brick represents the players who will be playing against each other.  A player gets a point once the opponent misses a ball.
 
-This project is a starting point for a Flutter application.
+The first player who reaches the goal score -- by default 10 points, wins the game!
 
-A few resources to get you started if this is your first Flutter project:
+I started the project after watching the interview of **Flutter Flame Engine** creators in a youtube video *https://www.youtube.com/watch?v=J3ZZyzKS-rg*.
+But instead of diving into Flutter Flame Engine, I want to try first how to create a game using only Flutter.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Tools/Dependencies
+Flutter 
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# Go-Pong
+## Executing program
+
+* Reset app to clean state by deleting the build directory and some other files.
+```
+flutter clean
+```
+* Install Dependencies
+```
+flutter pub get
+```
+* Run app
+```
+flutter run
+```
