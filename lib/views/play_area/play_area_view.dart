@@ -15,17 +15,19 @@ class PlayAreaView extends StatefulWidget {
 
 class _PlayAreaViewState extends State<PlayAreaView> with MixinMovements {
   void _startGame() {
-    setState(() {
-      gameStart = true;
-      Timer.periodic(const Duration(milliseconds: 8), (timer) {
-        ballTimer = timer;
-        setState(() {
-          updateDirection();
-          moveBall();
-          checkDeadBall();
+    if (!gameStart) {
+      setState(() {
+        gameStart = true;
+        Timer.periodic(const Duration(milliseconds: 8), (timer) {
+          ballTimer = timer;
+          setState(() {
+            updateDirection();
+            moveBall();
+            checkDeadBall();
+          });
         });
       });
-    });
+    }
   }
 
   @override
