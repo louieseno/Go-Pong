@@ -64,6 +64,7 @@ mixin MixinMovements {
     if (_ballYDirection == BallDirection.up) {
       ballY -= 0.01;
     }
+
     // HORIZONTAL DIRECTION
     if (_ballXDirection == BallDirection.left) {
       ballX -= 0.01;
@@ -79,8 +80,12 @@ mixin MixinMovements {
       gameStart = false;
       ballX = 0.0;
       ballY = 0.0;
-      _ballXDirection = BallDirection.left;
+
+      final _horizontalMovements = [BallDirection.left, BallDirection.right];
+      //TODO: apply random vertical if enemy movement finish
+      //final _verticalMovements = [BallDirection.up, BallDirection.down];
       _ballYDirection = BallDirection.down;
+      _ballXDirection = (_horizontalMovements.toList()..shuffle()).first;
     }
   }
 
