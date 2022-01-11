@@ -5,8 +5,9 @@ import 'package:go_pong/views/play_area/sprites/brick.dart';
 
 mixin MixinMovements {
   late Timer ballTimer;
+  Timer? throttle;
   bool gameStart = false;
-
+  int ballSpeed = 10;
   double ballX = 0.0;
   double ballY = 0.0;
 
@@ -18,7 +19,7 @@ mixin MixinMovements {
   final ballGlobalKey = GlobalKey();
   final botGlobalKey = GlobalKey();
 
-  bool _checkCollide() {
+  bool checkCollide() {
     RenderBox _ballBox =
         ballGlobalKey.currentContext!.findRenderObject() as RenderBox;
     RenderBox _brickBox =
@@ -43,7 +44,7 @@ mixin MixinMovements {
     if (ballY <= Brick.yTop) {
       _ballYDirection = BallDirection.down;
     }
-    if (ballY >= Brick.yBottom && _checkCollide()) {
+    if (ballY >= Brick.yBottom && checkCollide()) {
       _ballYDirection = BallDirection.up;
     }
 
@@ -76,6 +77,7 @@ mixin MixinMovements {
 
   void checkDeadBall() {
     if (ballY >= 1) {
+      ballSpeed = 10;
       ballTimer.cancel();
       gameStart = false;
       ballX = 0.0;

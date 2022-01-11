@@ -14,18 +14,33 @@ class PlayAreaView extends StatefulWidget {
 }
 
 class _PlayAreaViewState extends State<PlayAreaView> with MixinMovements {
+  void _gameEvent() {
+    Timer.periodic(Duration(milliseconds: ballSpeed), (timer) {
+      ballTimer = timer;
+      if (checkCollide() && ballSpeed > 1) {
+        // Throttle event
+        if (throttle?.isActive ?? false) {
+          throttle?.cancel();
+        }
+        throttle = Timer(const Duration(milliseconds: 50), () {
+          timer.cancel();
+          ballSpeed -= 1;
+          _gameEvent();
+        });
+      }
+      setState(() {
+        updateDirection();
+        moveBall();
+        checkDeadBall();
+      });
+    });
+  }
+
   void _startGame() {
     if (!gameStart) {
       setState(() {
         gameStart = true;
-        Timer.periodic(const Duration(milliseconds: 8), (timer) {
-          ballTimer = timer;
-          setState(() {
-            updateDirection();
-            moveBall();
-            checkDeadBall();
-          });
-        });
+        _gameEvent();
       });
     }
   }
