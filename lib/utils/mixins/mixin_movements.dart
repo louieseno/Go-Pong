@@ -5,7 +5,7 @@ import 'package:go_pong/views/play_area/sprites/brick.dart';
 
 mixin MixinMovements {
   late Timer ballTimer;
-  Timer? throttle;
+  Timer? debounce;
   bool gameStart = false;
   int ballSpeed = 10;
   double ballX = 0.0;

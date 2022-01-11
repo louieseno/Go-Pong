@@ -18,11 +18,10 @@ class _PlayAreaViewState extends State<PlayAreaView> with MixinMovements {
     Timer.periodic(Duration(milliseconds: ballSpeed), (timer) {
       ballTimer = timer;
       if (checkCollide() && ballSpeed > 1) {
-        // Throttle event
-        if (throttle?.isActive ?? false) {
-          throttle?.cancel();
+        if (debounce?.isActive ?? false) {
+          debounce?.cancel();
         }
-        throttle = Timer(const Duration(milliseconds: 50), () {
+        debounce = Timer(const Duration(milliseconds: 50), () {
           timer.cancel();
           ballSpeed -= 1;
           _gameEvent();
