@@ -21,7 +21,7 @@ class _PlayAreaViewState extends State<PlayAreaView> with MixinMovements {
         if (debounce?.isActive ?? false) {
           debounce?.cancel();
         }
-        debounce = Timer(const Duration(milliseconds: 20), () {
+        debounce = Timer(const Duration(milliseconds: 50), () {
           timer.cancel();
           ballSpeed -= 1;
           _gameEvent();
@@ -31,6 +31,7 @@ class _PlayAreaViewState extends State<PlayAreaView> with MixinMovements {
         updateDirection();
         moveBall();
         checkDeadBall();
+
         enemyX = ballX;
       });
     });
@@ -51,14 +52,14 @@ class _PlayAreaViewState extends State<PlayAreaView> with MixinMovements {
       onTap: _startGame,
       onHorizontalDragUpdate: (DragUpdateDetails details) {
         if (gameStart) {
-          // Swiping in right direction.
-          if (details.delta.dx > 0) {
+          double _position = details.delta.dx;
+          if (_position > 0 && _position > 2.0) {
             setState(() {
               moveRight();
             });
           }
           // Swiping in left direction.
-          if (details.delta.dx < 0) {
+          if (_position < 0 && _position < -2.0) {
             setState(() {
               moveLeft();
             });
