@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:go_pong/utils/constants/player_type.dart';
 import 'package:go_pong/utils/mixins/mixin_movements.dart';
 import 'package:go_pong/views/play_area/sprites/ball.dart';
 import 'package:go_pong/views/play_area/sprites/brick.dart';
@@ -21,7 +22,7 @@ class _PlayAreaViewState extends State<PlayAreaView> with MixinMovements {
         if (debounce?.isActive ?? false) {
           debounce?.cancel();
         }
-        debounce = Timer(const Duration(milliseconds: 50), () {
+        debounce = Timer(const Duration(milliseconds: 20), () {
           timer.cancel();
           ballSpeed -= 1;
           _gameEvent();
@@ -53,13 +54,13 @@ class _PlayAreaViewState extends State<PlayAreaView> with MixinMovements {
           // Swiping in right direction.
           if (details.delta.dx > 0) {
             setState(() {
-              moveRight();
+              moveRight(PlayerType.main);
             });
           }
           // Swiping in left direction.
           if (details.delta.dx < 0) {
             setState(() {
-              moveLeft();
+              moveLeft(PlayerType.main);
             });
           }
         }
@@ -76,7 +77,7 @@ class _PlayAreaViewState extends State<PlayAreaView> with MixinMovements {
                   text: 'TAP  TO  PLAY',
                 ),
               Brick(
-                x: 0.0,
+                x: enemyX,
                 isNegative: true,
                 brickGlobalKey: botGlobalKey,
               ),

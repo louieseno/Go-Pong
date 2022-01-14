@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_pong/utils/constants/ball_direction.dart';
+import 'package:go_pong/utils/constants/player_type.dart';
 import 'package:go_pong/views/play_area/sprites/brick.dart';
 
 mixin MixinMovements {
@@ -15,6 +16,7 @@ mixin MixinMovements {
   BallDirection _ballYDirection = BallDirection.down;
 
   double playerX = 0.0;
+  double enemyX = 0.0;
   final playerGlobalKey = GlobalKey();
   final ballGlobalKey = GlobalKey();
   final botGlobalKey = GlobalKey();
@@ -91,15 +93,19 @@ mixin MixinMovements {
     }
   }
 
-  void moveLeft() {
-    if (playerX > -0.98) {
-      playerX -= 0.045;
+  void moveLeft(PlayerType playerType) {
+    if (playerType == PlayerType.main) {
+      if (playerX > -0.98) {
+        playerX -= 0.045;
+      }
     }
   }
 
-  void moveRight() {
-    if (playerX < 0.98) {
-      playerX += 0.045;
+  void moveRight(PlayerType playerType) {
+    if (playerType == PlayerType.main) {
+      if (playerX < 0.98) {
+        playerX += 0.045;
+      }
     }
   }
 }
