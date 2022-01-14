@@ -5,9 +5,7 @@ import 'package:go_pong/views/play_area/sprites/brick.dart';
 
 mixin MixinMovements {
   late Timer ballTimer;
-  Timer? debounce;
   bool gameStart = false;
-  int ballSpeed = 5;
   double ballX = 0.0;
   double ballY = 0.0;
 
@@ -20,17 +18,17 @@ mixin MixinMovements {
   final ballGlobalKey = GlobalKey();
   final botGlobalKey = GlobalKey();
 
-  bool checkCollide() {
+  bool _checkCollide(GlobalKey brickKey, double brickXPos, double brickYPos) {
     RenderBox _ballBox =
         ballGlobalKey.currentContext!.findRenderObject() as RenderBox;
     RenderBox _brickBox =
-        playerGlobalKey.currentContext!.findRenderObject() as RenderBox;
+        brickKey.currentContext!.findRenderObject() as RenderBox;
 
     final _ballSize = _ballBox.size;
     final _brickSize = _brickBox.size;
 
     final _ballPos = _ballBox.localToGlobal(Offset(ballX, ballY));
-    final _brickPos = _brickBox.localToGlobal(Offset(playerX, Brick.yBottom));
+    final _brickPos = _brickBox.localToGlobal(Offset(brickXPos, brickYPos));
 
     final collide = (_ballPos.dx < _brickPos.dx + _brickSize.width &&
         _ballPos.dx + _ballSize.width > _brickPos.dx &&
@@ -42,10 +40,12 @@ mixin MixinMovements {
 
   void updateDirection() {
     // VERTICAL UPDATE
-    if (ballY <= Brick.yTop) {
+    if (ballY <= Brick.yTop &&
+        _checkCollide(botGlobalKey, enemyX, Brick.yTop)) {
       _ballYDirection = BallDirection.down;
     }
-    if (ballY >= Brick.yBottom && checkCollide()) {
+    if (ballY >= Brick.yBottom &&
+        _checkCollide(playerGlobalKey, playerX, Brick.yBottom)) {
       _ballYDirection = BallDirection.up;
     }
 
@@ -77,8 +77,7 @@ mixin MixinMovements {
   }
 
   void checkDeadBall() {
-    if (ballY >= 1) {
-      ballSpeed = 10;
+    if (ballY >= 1 || ballY <= -1) {
       ballTimer.cancel();
       gameStart = false;
       ballX = 0.0;
@@ -93,7 +92,7 @@ mixin MixinMovements {
   }
 
   void enemyMovement() {
-    enemyX = ballX - 0.009;
+    enemyX = ballX;
   }
 
   void moveLeft() {
