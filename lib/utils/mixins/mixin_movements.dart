@@ -8,7 +8,7 @@ mixin MixinMovements {
   bool gameStart = false;
   double ballX = 0.0;
   double ballY = 0.0;
-
+  double ballAngle = 0.005;
   BallDirection _ballXDirection = BallDirection.left;
   BallDirection _ballYDirection = BallDirection.down;
 
@@ -34,7 +34,12 @@ mixin MixinMovements {
         _ballPos.dx + _ballSize.width > _brickPos.dx &&
         _ballPos.dy < _brickPos.dy + _brickSize.height &&
         _ballPos.dy + _ballSize.height > _brickPos.dy);
-
+    if (collide) {
+      if (ballAngle < 0.05) {
+        ballAngle += 0.001;
+        print(ballAngle);
+      }
+    }
     return collide;
   }
 
@@ -69,10 +74,10 @@ mixin MixinMovements {
 
     // HORIZONTAL DIRECTION
     if (_ballXDirection == BallDirection.left) {
-      ballX -= 0.01;
+      ballX -= ballAngle;
     }
     if (_ballXDirection == BallDirection.right) {
-      ballX += 0.01;
+      ballX += ballAngle;
     }
   }
 
@@ -82,7 +87,7 @@ mixin MixinMovements {
       gameStart = false;
       ballX = 0.0;
       ballY = 0.0;
-
+      ballAngle = 0.005;
       final _horizontalMovements = [BallDirection.left, BallDirection.right];
       //TODO: apply random vertical if enemy movement finish
       //final _verticalMovements = [BallDirection.up, BallDirection.down];
