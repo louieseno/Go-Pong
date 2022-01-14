@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:go_pong/utils/constants/player_type.dart';
 import 'package:go_pong/utils/mixins/mixin_movements.dart';
 import 'package:go_pong/views/play_area/sprites/ball.dart';
 import 'package:go_pong/views/play_area/sprites/brick.dart';
@@ -32,6 +31,7 @@ class _PlayAreaViewState extends State<PlayAreaView> with MixinMovements {
         updateDirection();
         moveBall();
         checkDeadBall();
+        enemyX = ballX;
       });
     });
   }
@@ -54,13 +54,13 @@ class _PlayAreaViewState extends State<PlayAreaView> with MixinMovements {
           // Swiping in right direction.
           if (details.delta.dx > 0) {
             setState(() {
-              moveRight(PlayerType.main);
+              moveRight();
             });
           }
           // Swiping in left direction.
           if (details.delta.dx < 0) {
             setState(() {
-              moveLeft(PlayerType.main);
+              moveLeft();
             });
           }
         }

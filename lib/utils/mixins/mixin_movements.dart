@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_pong/utils/constants/ball_direction.dart';
-import 'package:go_pong/utils/constants/player_type.dart';
 import 'package:go_pong/views/play_area/sprites/brick.dart';
 
 mixin MixinMovements {
   late Timer ballTimer;
   Timer? debounce;
   bool gameStart = false;
-  int ballSpeed = 10;
+  int ballSpeed = 5;
   double ballX = 0.0;
   double ballY = 0.0;
 
@@ -93,19 +92,19 @@ mixin MixinMovements {
     }
   }
 
-  void moveLeft(PlayerType playerType) {
-    if (playerType == PlayerType.main) {
-      if (playerX > -0.98) {
-        playerX -= 0.045;
-      }
+  void enemyMovement() {
+    enemyX = ballX - 0.009;
+  }
+
+  void moveLeft() {
+    if (playerX > -0.98) {
+      playerX -= 0.1;
     }
   }
 
-  void moveRight(PlayerType playerType) {
-    if (playerType == PlayerType.main) {
-      if (playerX < 0.98) {
-        playerX += 0.045;
-      }
+  void moveRight() {
+    if (playerX < 0.98) {
+      playerX += 0.1;
     }
   }
 }

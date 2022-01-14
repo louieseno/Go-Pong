@@ -1,1 +1,0 @@
-enum PlayerType { main, enemy }
