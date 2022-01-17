@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_pong/utils/constants/ball_direction.dart';
 import 'package:go_pong/views/play_area/sprites/brick.dart';
 
-mixin MixinMovements {
+mixin MixinPlayArea {
   late Timer ballTimer;
   bool gameStart = false;
   double ballX = 0.0;
@@ -14,6 +14,8 @@ mixin MixinMovements {
 
   double playerX = 0.0;
   double enemyX = 0.0;
+  int playerScore = 0;
+  int enemyScore = 0;
   final playerGlobalKey = GlobalKey();
   final ballGlobalKey = GlobalKey();
   final botGlobalKey = GlobalKey();
@@ -80,8 +82,51 @@ mixin MixinMovements {
     }
   }
 
-  void checkDeadBall() {
-    if (ballY >= 1 || ballY <= -1) {
+  bool _playerGoal() {
+    if (ballY >= 1) {
+      enemyScore += 1;
+      return true;
+    }
+    if (ballY <= -1) {
+      playerScore += 1;
+      return true;
+    }
+    return false;
+  }
+
+  void checkDeadBall(context) {
+    if (_playerGoal()) {
+      if ([enemyScore, playerScore].contains(10)) {
+        String _title = enemyScore == 10 ? 'Game Over!' : 'You Win!';
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (builder) {
+              return AlertDialog(
+                backgroundColor: Colors.deepPurple,
+                title: Center(
+                    child: Text(
+                  _title,
+                  style: const TextStyle(color: Colors.white),
+                )),
+                actions: [
+                  InkWell(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: ClipRRect(
+                      child: Container(
+                        padding: const EdgeInsets.all(7.0),
+                        color: Colors.deepPurple[100],
+                        child: Text(
+                          'Play Again',
+                          style: TextStyle(color: Colors.deepPurple[700]),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              );
+            });
+      }
       ballTimer.cancel();
       gameStart = false;
       ballX = 0.0;

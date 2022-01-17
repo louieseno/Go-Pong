@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:go_pong/utils/mixins/mixin_movements.dart';
+import 'package:go_pong/utils/mixins/mixin_play_area.dart';
 import 'package:go_pong/views/play_area/scoreboard/player_score.dart';
+import 'package:go_pong/views/play_area/scoreboard/score_line.dart';
 import 'package:go_pong/views/play_area/sprites/ball.dart';
 import 'package:go_pong/views/play_area/sprites/brick.dart';
 import 'package:go_pong/shared_widgets/stack_text.dart';
@@ -14,14 +15,14 @@ class PlayAreaView extends StatefulWidget {
   State<PlayAreaView> createState() => _PlayAreaViewState();
 }
 
-class _PlayAreaViewState extends State<PlayAreaView> with MixinMovements {
+class _PlayAreaViewState extends State<PlayAreaView> with MixinPlayArea {
   void _gameEvent() {
     Timer.periodic(const Duration(milliseconds: 5), (timer) {
       ballTimer = timer;
       setState(() {
         updateDirection();
         moveBall();
-        checkDeadBall();
+        checkDeadBall(context);
         enemyMovement();
       });
     });
@@ -69,16 +70,9 @@ class _PlayAreaViewState extends State<PlayAreaView> with MixinMovements {
                     text: 'TAP  TO  PLAY',
                   ),
                 // SCORE BOARD
-                const PlayerScore(xPosition: 0, yPosition: -0.2, score: 0),
-                Container(
-                  alignment: const Alignment(0, 0),
-                  child: Container(
-                    height: 1,
-                    width: MediaQuery.of(context).size.width - 50,
-                    color: Colors.grey[800],
-                  ),
-                ),
-                const PlayerScore(xPosition: 0, yPosition: 0.2, score: 0),
+                PlayerScore(xPosition: 0, yPosition: -0.2, score: enemyScore),
+                const ScoreLine(),
+                PlayerScore(xPosition: 0, yPosition: 0.2, score: playerScore),
                 // SPRITES
                 Brick(
                   x: enemyX,
