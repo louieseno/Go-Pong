@@ -16,8 +16,8 @@ class Ball extends StatelessWidget {
         key: ballGlobalKey,
         decoration:
             const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-        width: 20.0,
-        height: 20.0,
+        width: 15.0,
+        height: 15.0,
       ),
     );
   }

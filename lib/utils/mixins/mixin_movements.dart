@@ -37,7 +37,6 @@ mixin MixinMovements {
     if (collide) {
       if (ballAngle < 0.05) {
         ballAngle += 0.001;
-        print(ballAngle);
       }
     }
     return collide;
