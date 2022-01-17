@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_pong/utils/mixins/mixin_navigator.dart';
 import 'package:go_pong/views/play_area/play_area_view.dart';
-import 'package:go_pong/widgets/stack_text.dart';
+import 'package:go_pong/shared_widgets/stack_text.dart';
 
 class HomeView extends StatefulWidget {
   static const route = '/';

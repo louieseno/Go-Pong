@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_pong/widgets/conditional_widget.dart';
+import 'package:go_pong/shared_widgets/conditional_widget.dart';
 
 class StackText extends StatelessWidget {
   final double textSize;

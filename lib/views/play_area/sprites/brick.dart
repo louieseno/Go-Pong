@@ -4,7 +4,7 @@ import 'package:go_pong/utils/helpers/check_device_type.dart';
 
 class Brick extends StatelessWidget {
   static const yTop = -0.9;
-  static const yBottom = 0.7;
+  static const yBottom = 0.6;
   final double x;
   final bool isNegative;
   final GlobalKey brickGlobalKey;
