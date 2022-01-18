@@ -9,13 +9,16 @@ mixin MixinPlayArea {
   double ballX = 0.0;
   double ballY = 0.0;
   double ballAngle = 0.005;
+
   BallDirection _ballXDirection = BallDirection.left;
   BallDirection _ballYDirection = BallDirection.down;
+  BallDirection _enemyXDirection = BallDirection.left;
 
   double playerX = 0.0;
   double enemyX = 0.0;
   int playerScore = 0;
   int enemyScore = 0;
+  final boundary = 0.98;
   final playerGlobalKey = GlobalKey();
   final ballGlobalKey = GlobalKey();
   final botGlobalKey = GlobalKey();
@@ -110,17 +113,26 @@ mixin MixinPlayArea {
   }
 
   void enemyMovement() {
-    enemyX = ballX;
+    if (_ballYDirection == BallDirection.up) {
+      if (_ballXDirection == BallDirection.left && enemyX > -boundary) {
+        _enemyXDirection = _ballXDirection;
+        enemyX -= ballAngle;
+      }
+      if (_ballXDirection == BallDirection.right && enemyX < boundary) {
+        _enemyXDirection = _ballXDirection;
+        enemyX += ballAngle;
+      }
+    }
   }
 
   void moveLeft() {
-    if (playerX > -0.98) {
+    if (playerX > -boundary) {
       playerX -= 0.1;
     }
   }
 
   void moveRight() {
-    if (playerX < 0.98) {
+    if (playerX < boundary) {
       playerX += 0.1;
     }
   }
