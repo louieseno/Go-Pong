@@ -82,7 +82,7 @@ mixin MixinPlayArea {
     }
   }
 
-  bool _playerGoal() {
+  bool playerGoal() {
     if (ballY >= 1) {
       enemyScore += 1;
       return true;
@@ -94,50 +94,16 @@ mixin MixinPlayArea {
     return false;
   }
 
-  void checkDeadBall(context) {
-    if (_playerGoal()) {
-      if ([enemyScore, playerScore].contains(10)) {
-        String _title = enemyScore == 10 ? 'Game Over!' : 'You Win!';
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (builder) {
-              return AlertDialog(
-                backgroundColor: Colors.deepPurple,
-                title: Center(
-                    child: Text(
-                  _title,
-                  style: const TextStyle(color: Colors.white),
-                )),
-                actions: [
-                  InkWell(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: ClipRRect(
-                      child: Container(
-                        padding: const EdgeInsets.all(7.0),
-                        color: Colors.deepPurple[100],
-                        child: Text(
-                          'Play Again',
-                          style: TextStyle(color: Colors.deepPurple[700]),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              );
-            });
-      }
-      ballTimer.cancel();
-      gameStart = false;
-      ballX = 0.0;
-      ballY = 0.0;
-      ballAngle = 0.005;
-      final _horizontalMovements = [BallDirection.left, BallDirection.right];
-      //TODO: apply random vertical if enemy movement finish
-      //final _verticalMovements = [BallDirection.up, BallDirection.down];
-      _ballYDirection = BallDirection.down;
-      _ballXDirection = (_horizontalMovements.toList()..shuffle()).first;
-    }
+  void resetGameVariables() {
+    ballX = 0.0;
+    ballY = 0.0;
+    ballAngle = 0.005;
+    ballTimer.cancel();
+    final _horizontalMovements = [BallDirection.left, BallDirection.right];
+    //TODO: apply random vertical if enemy movement finish
+    //final _verticalMovements = [BallDirection.up, BallDirection.down];
+    _ballYDirection = BallDirection.down;
+    _ballXDirection = (_horizontalMovements.toList()..shuffle()).first;
   }
 
   void enemyMovement() {
@@ -154,5 +120,54 @@ mixin MixinPlayArea {
     if (playerX < 0.98) {
       playerX += 0.1;
     }
+  }
+
+  void playAgain({
+    required BuildContext context,
+    required Function onPlayAgain,
+    required Function onQuit,
+  }) {
+    String _title = enemyScore == 10 ? 'Game Over!' : 'You Win!';
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (builder) {
+          return AlertDialog(
+            backgroundColor: Colors.deepPurple,
+            title: Center(
+                child: Text(
+              _title,
+              style: const TextStyle(color: Colors.white),
+            )),
+            actions: [
+              InkWell(
+                onTap: () => onPlayAgain(),
+                child: ClipRRect(
+                  child: Container(
+                    padding: const EdgeInsets.all(7.0),
+                    color: Colors.deepPurple[100],
+                    child: Text(
+                      'Play Again',
+                      style: TextStyle(color: Colors.deepPurple[700]),
+                    ),
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () => onQuit(),
+                child: ClipRRect(
+                  child: Container(
+                    padding: const EdgeInsets.all(7.0),
+                    color: Colors.red[100],
+                    child: Text(
+                      'Quit',
+                      style: TextStyle(color: Colors.red[700]),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
   }
 }

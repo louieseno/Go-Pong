@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:go_pong/utils/mixins/mixin_navigator.dart';
 import 'package:go_pong/utils/mixins/mixin_play_area.dart';
+import 'package:go_pong/views/home/home_view.dart';
 import 'package:go_pong/views/play_area/scoreboard/player_score.dart';
 import 'package:go_pong/views/play_area/scoreboard/score_line.dart';
 import 'package:go_pong/views/play_area/sprites/ball.dart';
@@ -15,15 +17,33 @@ class PlayAreaView extends StatefulWidget {
   State<PlayAreaView> createState() => _PlayAreaViewState();
 }
 
-class _PlayAreaViewState extends State<PlayAreaView> with MixinPlayArea {
+class _PlayAreaViewState extends State<PlayAreaView>
+    with MixinPlayArea, MixinNavigator {
   void _gameEvent() {
-    Timer.periodic(const Duration(milliseconds: 5), (timer) {
+    Timer.periodic(const Duration(milliseconds: 8), (timer) {
       ballTimer = timer;
       setState(() {
         updateDirection();
         moveBall();
-        checkDeadBall(context);
         enemyMovement();
+
+        if (playerGoal()) {
+          resetGameVariables();
+          if ([enemyScore, playerScore].contains(10)) {
+            playAgain(
+              context: context,
+              onPlayAgain: () {
+                Navigator.of(context).pop();
+                enemyScore = 0;
+                playerScore = 0;
+                _gameEvent();
+              },
+              onQuit: () => routePushReplaced(context, HomeView.route),
+            );
+          } else {
+            _gameEvent();
+          }
+        }
       });
     });
   }
