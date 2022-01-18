@@ -95,15 +95,18 @@ mixin MixinPlayArea {
   }
 
   void resetGameVariables() {
+    final _horizontalMovements = [BallDirection.left, BallDirection.right];
+    if (ballY >= 1) {
+      _ballYDirection = BallDirection.up;
+    }
+    if (ballY <= -1) {
+      _ballYDirection = BallDirection.down;
+    }
+    _ballXDirection = (_horizontalMovements.toList()..shuffle()).first;
     ballX = 0.0;
     ballY = 0.0;
     ballAngle = 0.005;
     ballTimer.cancel();
-    final _horizontalMovements = [BallDirection.left, BallDirection.right];
-    //TODO: apply random vertical if enemy movement finish
-    //final _verticalMovements = [BallDirection.up, BallDirection.down];
-    _ballYDirection = BallDirection.down;
-    _ballXDirection = (_horizontalMovements.toList()..shuffle()).first;
   }
 
   void enemyMovement() {
