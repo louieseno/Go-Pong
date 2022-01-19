@@ -113,20 +113,6 @@ mixin MixinPlayArea {
   }
 
   void enemyMovement() {
-    // if (_enemyXDirection != _ballXDirection &&
-    //     _ballXDirection == BallDirection.right &&
-    //     ballX <= enemyX &&
-    //     enemyX > -boundary) {
-    //   print("STOPPED");
-    //   return;
-    // }
-    // if (_enemyXDirection != _ballXDirection &&
-    //     _ballXDirection == BallDirection.left &&
-    //     enemyX >= ballX &&
-    //     enemyX < boundary) {
-    //   return;
-    // }
-
     if (_ballYDirection == BallDirection.up) {
       if (_ballXDirection == BallDirection.left) {
         // Continue right
@@ -170,7 +156,7 @@ mixin MixinPlayArea {
     required Function onPlayAgain,
     required Function onQuit,
   }) {
-    String _title = enemyScore == 10 ? 'Game Over!' : 'You Win!';
+    String _title = enemyScore == 10 ? 'You Lose!' : 'You Win!';
     showDialog(
         context: context,
         barrierDismissible: false,
