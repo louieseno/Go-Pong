@@ -18,6 +18,7 @@ mixin MixinPlayArea {
   double enemyX = 0.0;
   int playerScore = 0;
   int enemyScore = 0;
+  int goalScore = 5;
   final boundary = 0.98;
   final playerGlobalKey = GlobalKey();
   final ballGlobalKey = GlobalKey();

@@ -29,7 +29,7 @@ class _PlayAreaViewState extends State<PlayAreaView>
 
         if (playerGoal()) {
           resetGameVariables();
-          if ([enemyScore, playerScore].contains(10)) {
+          if ([enemyScore, playerScore].contains(goalScore)) {
             playAgain(
               context: context,
               onPlayAgain: () {
