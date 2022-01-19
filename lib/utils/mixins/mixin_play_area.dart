@@ -113,14 +113,42 @@ mixin MixinPlayArea {
   }
 
   void enemyMovement() {
+    // if (_enemyXDirection != _ballXDirection &&
+    //     _ballXDirection == BallDirection.right &&
+    //     ballX <= enemyX &&
+    //     enemyX > -boundary) {
+    //   print("STOPPED");
+    //   return;
+    // }
+    // if (_enemyXDirection != _ballXDirection &&
+    //     _ballXDirection == BallDirection.left &&
+    //     enemyX >= ballX &&
+    //     enemyX < boundary) {
+    //   return;
+    // }
+
     if (_ballYDirection == BallDirection.up) {
-      if (_ballXDirection == BallDirection.left && enemyX > -boundary) {
-        _enemyXDirection = _ballXDirection;
-        enemyX -= ballAngle;
+      if (_ballXDirection == BallDirection.left) {
+        // Continue right
+        if (_enemyXDirection != _ballXDirection &&
+            ballX >= enemyX &&
+            enemyX < boundary) {
+          enemyX += ballAngle;
+        } else if (enemyX > -boundary) {
+          _enemyXDirection = _ballXDirection;
+          enemyX -= ballAngle;
+        }
       }
-      if (_ballXDirection == BallDirection.right && enemyX < boundary) {
-        _enemyXDirection = _ballXDirection;
-        enemyX += ballAngle;
+      if (_ballXDirection == BallDirection.right) {
+        // Continue left
+        if (_enemyXDirection != _ballXDirection &&
+            ballX <= enemyX &&
+            enemyX < boundary) {
+          enemyX -= ballAngle;
+        } else if (enemyX < boundary) {
+          _enemyXDirection = _ballXDirection;
+          enemyX += ballAngle;
+        }
       }
     }
   }
